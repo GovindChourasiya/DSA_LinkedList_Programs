@@ -1,0 +1,114 @@
+// You are using GCC
+#include<stdio.h>
+#include<iostream>
+#include<stdlib.h>
+
+using namespace std;
+struct node {
+    int data;
+    struct node *next;
+};
+
+struct node *insertElement(struct node *head , int value){
+    struct node *newnode = (struct node*)malloc(sizeof(struct node));
+    if(newnode == NULL){
+        return head;
+    }
+    newnode->data = value;
+    newnode->next = head;
+    head = newnode;
+    
+    return head;
+}
+
+
+void reverse(struct node *head){
+    if(head == NULL){
+        return ;
+    }
+    reverse(head->next);
+    cout << head->data << " ";
+}
+struct node *rev(struct node *head){
+    struct node *prev = NULL;
+    struct node *current = head;
+    struct node *next = NULL;
+    
+    while (current != NULL){
+        next = current->next;
+        current->next = prev;
+        prev = current;
+        current = next;
+    }
+    return prev;
+}
+
+void swap(struct node *head){
+    struct node *current = head;
+    
+    while(current != NULL){
+        int temp;
+        if(current->next != NULL){
+        temp = current->data;
+        current->data = current->next->data;
+        current->next->data = temp;
+      
+        current = current->next->next;
+        } else{
+            return ;
+        }}}
+
+void display(struct node *head){
+    struct node *current = head;
+    while(current != NULL){
+        cout << current->data << " ";
+        current = current->next;
+    }
+}
+
+
+int main(){
+    struct node *head = NULL;
+    int n;
+    cin >> n;
+    int arr[100];
+    for(int i=0;i<n;i++){
+        cin >> arr[i];
+    }
+    for(int i=0;i<n;i++){
+        head = insertElement(head,arr[i]);
+    }
+    cout << "\nLinked list before swapping pairwise: ";
+    reverse(head);
+    if(n%2 == 0){
+    cout << "\nLinked list after swapping pairwise: " ;
+    swap(head);
+    reverse(head);
+    } else{
+        cout << "\nLinked list after swapping pairwise: ";
+        head = rev(head);
+        swap(head);
+        display(head);
+        
+    }
+   
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
