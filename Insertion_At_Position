@@ -1,0 +1,94 @@
+// You are using GCC
+#include<stdio.h>
+#include<iostream>
+#include<stdlib.h>
+
+using namespace std;
+struct node{
+    int data;
+    struct node *next;
+};
+
+struct node *insertElement(struct node *head,int value){
+    struct node *newnode = (struct node*)malloc(sizeof(struct node));
+    if(newnode == NULL){
+        return head;
+    }
+    newnode->data = value;
+    newnode->next = head;
+    head = newnode;
+    return head;
+    
+}
+struct node *insertAtPosition(struct node *head,int n,int position){
+    struct node *newnode = new node;
+    if(newnode == NULL){
+        return head;
+    }
+    newnode->data = n;
+    
+    if(position == 0){
+        newnode->next = head;
+        head = newnode;
+        return head;
+    }
+    struct node *current = head;
+    for(int i=0;i<position-1 && current != NULL;i++){
+        current = current->next;
+    }
+    if(current == NULL){
+        return head;
+    }
+    newnode->next = current->next;
+    current->next = newnode;
+    return head;
+}
+void display(struct node *head){
+    struct node *current = head;
+    while(current != NULL){
+        cout << current->data << " ";
+        current = current->next;
+    }
+}
+void reverse(struct node *head){
+    if(head == NULL){
+        return ;
+    }
+    reverse(head->next);
+    cout << head->data << " ";
+}
+
+int main(){
+    struct node *head = NULL;
+    int num;
+    cin >> num;
+    int arr[100];
+    for(int i=0;i<num;i++){
+        cin >> arr[i];
+    }
+    for(int i=0;i<num;i++){
+        head = insertElement(head,arr[i]);
+    }
+    int pos;
+    int val;
+    cin >> pos;
+    cin >> val;
+    
+    head = insertAtPosition(head,val,num-pos+1);
+    reverse(head);
+    
+    return 0;
+    
+}
+
+
+
+
+
+
+
+
+
+
+
+
