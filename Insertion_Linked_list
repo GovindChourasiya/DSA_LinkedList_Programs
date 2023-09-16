@@ -1,0 +1,79 @@
+// You are using GCC
+#include<stdio.h>
+#include<stdlib.h>  
+#include<iostream>
+using namespace std;
+struct node {
+    int data;
+    struct node *next;
+};
+struct node *insertElement(struct node *head,int val){
+    struct node *newnode = (struct node*)malloc(sizeof(struct node));
+    if(newnode == NULL){
+        return head;
+    }
+    newnode->data = val;
+    newnode->next = head;
+    head = newnode;
+    return head;
+}
+void reverse(struct node *head){
+    if(head == NULL){
+        return ;
+    }
+    reverse(head->next);
+    cout << head->data << " ";
+    
+}
+ void display(struct node *head){
+    struct node *current = head;
+    
+    while(current != NULL){
+        cout << current->data << endl;
+        current = current->next;
+    }
+    
+}
+int main(){
+    struct node *head = NULL;
+    int num;
+    int i=0;
+    int arr[100];
+    cin >> num;
+    if(num < 0){
+        cout << "Linked List is empty.";
+        return 0;
+    }
+    else{
+        head  = insertElement(head,num);
+    }
+    cout << "Linked List: " ;
+    while(1){
+        cin >> num;
+        if(num == -1 ){
+            reverse(head);
+            return 0;
+        }
+        arr[i] = num;
+        i++;
+        int flag = 0;
+        for(int j=0;j<i;j++){
+            if(arr[j] < 0){
+                flag = 1;
+                break;
+            }
+        }
+        if(num >= 0 && flag==0){
+            head = insertElement(head,num);
+        }
+    }
+    reverse(head);
+    
+    return 0;
+}
+
+
+
+
+
+
